@@ -18,12 +18,13 @@ class Search:
 		self.cache = {}
 		self._iterator = None
 
-	def register(self, model, option_class):
+	def register(self, model, option_class=None):
 		try:
 			model_options = self.registry[model]
 		except KeyError:
 			self.registry[model] = model_options = []
-		model_options.append(option_class)
+		if option_class is not None:
+			model_options.append(option_class)
 
 	def __iter__(self):
 		return iter(self.registry)
