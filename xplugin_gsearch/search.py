@@ -1,10 +1,17 @@
 # coding=utf-8
 
+
 class SearchOptsView:
 	model = opts = None
+	model_filter_active = True
 
-	def get_label(self):
+	@property
+	def verbose_name(self):
 		return self.opts.verbose_name
+
+	@property
+	def app_model_name(self):
+		return f"{self.opts.app_label}.{self.opts.model_name}"
 
 	def get_total(self):
 		return self.get_list_queryset().count()
@@ -17,6 +24,15 @@ class Search:
 		self.registry = {}
 		self.cache = {}
 		self._iterator = None
+
+	@property
+	def choices(self):
+		chs = []
+		for model in self.registry:
+			opts = model._meta
+			name = f"{opts.app_label}.{opts.model_name}"
+			chs.append((name, model))
+		return chs
 
 	def register(self, model, option_class=None):
 		try:
@@ -33,7 +49,8 @@ class Search:
 		if model in self.cache:
 			return self.cache[model]
 		opts = model._meta
-		bases = [option_base, SearchOptsView] + self.registry[model]
+		bases = list(self.registry[model])
+		bases.extend([SearchOptsView, option_base])
 		options = type("".join([opts.__name__ for opts in bases] + [opts.app_label, opts.model_name]),
 		               tuple(bases), {
 			               'model': model

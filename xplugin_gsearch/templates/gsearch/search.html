@@ -12,7 +12,9 @@
     {% for search in gsearch.views %}
     <div class="btn-group-toggle m-1" data-toggle="buttons">
       <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1" value="app.mod"> {{ search.view.get_label }}
+        <input type="checkbox" {% if search.enable %}checked{% endif %}
+          class="position-static mr-1 gsearch-models" value="{{ search.view.app_model_name }}">
+          {{ search.view.verbose_name }}
       </label>
     </div>
     {% endfor %}
@@ -25,27 +27,29 @@
 </h6>
 <div class="row mw-xxl">
   {% for search in gsearch.views %}
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="{{ search.url }}" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">{{ search.view.get_label }}</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
+    {% if search.enable %}
+    <div class="col-sm-12 col-lg-4 pt-3 pr-0">
+      <div class="list-group">
+        <a href="{{ search.url }}" class="list-group-item list-group-item-action p-2">
+          <div class="media align-items-center flex-fill">
+            <span class="fa-stack text-primary mr-2">
+              <i class="fas fa-square fa-stack-2x"></i>
+              <i class="fas fa-search fa-stack-1x fa-inverse"></i>
+            </span>
+            <div class="media-body d-flex align-items-center">
+              <div class="ml-2">{{ search.view.verbose_name }}</div>
+              <div class="ml-auto">
+                <span class="text-muted font-italic mr-1">
+                  <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> resultados
+                </span>
+                <i class="fa fa-chevron-right text-muted"></i>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
-  </div>
+    {% endif %}
   {% endfor %}
 </div>
 <!--/content-->

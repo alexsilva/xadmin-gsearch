@@ -1,4 +1,5 @@
-<form class="flex-grow-1" action="" method="get">
+<form class="flex-grow-1" action="" method="post" id="gsearch_form">
+  {% csrf_token %}
   <div class="input-group search-group justify-content-lg-end">
         <span class="input-group-prepend">
         <a class="input-group-text btn" href="{{ gsearch.url }}">
