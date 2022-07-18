@@ -25,7 +25,7 @@
     <form class="flex-grow-1" action="" method="get">
       <div class="input-group search-group justify-content-lg-end">
         <span class="input-group-prepend">
-        <a class="input-group-text btn" href="?">
+        <a class="input-group-text btn" href="{{ gsearch.url }}">
             <i class="fa fa-times-circle"></i>
         </a>
         </span>
@@ -97,23 +97,24 @@
 </div>
 
 <h6 class="my-1">
-  <span class="text-success">150</span>
+  <span class="text-success">{{ gsearch.count }}</span>
   <span class="text-muted">resultados encontrados</span>
 </h6>
 <div class="row mw-xxl">
+  {% for search in gsearch.views %}
   <div class="col-sm-12 col-lg-4 pt-3 pr-0">
     <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
+      <a href="{{ search.url }}" class="list-group-item list-group-item-action p-2">
         <div class="media align-items-center flex-fill">
           <span class="fa-stack text-primary mr-2">
             <i class="fas fa-square fa-stack-2x"></i>
             <i class="fas fa-search fa-stack-1x fa-inverse"></i>
           </span>
           <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Matérias</div>
+            <div class="ml-2">{{ search.view.get_label }}</div>
             <div class="ml-auto">
               <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">25</span></strong> resultados
+                <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> resultados
               </span>
               <i class="fa fa-chevron-right text-muted"></i>
             </div>
@@ -122,176 +123,7 @@
       </a>
     </div>
   </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Seções</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">38</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">
-              Descrição de seção
-            </div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">2</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Produtos</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">9</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Assinado por</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">5</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Enquete</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">5</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Evento</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">63</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Blocos de conteúdo</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">25</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-    <div class="list-group">
-      <a href="/admin/xadmin/plus_manager/user/" class="list-group-item list-group-item-action p-2">
-        <div class="media align-items-center flex-fill">
-          <span class="fa-stack text-primary mr-2">
-            <i class="fas fa-square fa-stack-2x"></i>
-            <i class="fas fa-search fa-stack-1x fa-inverse"></i>
-          </span>
-          <div class="media-body d-flex align-items-center">
-            <div class="ml-2">Inscrições</div>
-            <div class="ml-auto">
-              <span class="text-muted font-italic mr-1">
-                <strong><span class="text-primary">31</span></strong> resultados
-              </span>
-              <i class="fa fa-chevron-right text-muted"></i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
+  {% endfor %}
 </div>
 <!--/content-->
 {% endblock %}
