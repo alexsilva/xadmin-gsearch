@@ -1,98 +1,21 @@
 {% extends base_template %}
 
+{% block nav_title %}{{ gsearch.title }}{% endblock %}
+
 {% block content %}
-<!--xadmin header page-->
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Home</li>
-    <li class="breadcrumb-item active" aria-current="page">Resultados da busca</li>
-  </ol>
-</nav>
-<nav class="navbar content-navbar navbar-expand-md navbar-light bg-light border rounded mb-3" data-toggle="breakpoint"
-     data-class-xs="navbar content-navbar navbar-expand-xs navbar-dark bg-dark fixed-top"
-     data-class-sm="navbar content-navbar navbar-expand-sm navbar-light bg-light border rounded mb-3"
-     data-class-md="navbar content-navbar navbar-expand-md navbar-light bg-light border rounded mb-3">
-	  <button type="button" class="navbar-toggler" onclick="javascript: history.back();">
-		  <span class="fa fa-arrow-left"></span>
-	  </button>
-		<a class="navbar-brand ml-2 my-2 ml-md-0 mr-auto mr-md-2 my-md-0" href="#" data-toggle="collapse"
-		 data-target="#top-nav .navbar-collapse">
-			<span>Resultados da busca</span>
-		</a>
-  <div class="navbar-collapse collapse">
-    <ul class="navbar-nav mr-auto"></ul>
-
-    <form class="flex-grow-1" action="" method="get">
-      <div class="input-group search-group justify-content-lg-end">
-        <span class="input-group-prepend">
-        <a class="input-group-text btn" href="{{ gsearch.url }}">
-            <i class="fa fa-times-circle"></i>
-        </a>
-        </span>
-        <input id="searchbar" class="form-control" type="text" name="_q_" value="" placeholder="Termo">
-        <span class="input-group-append">
-          <button class="btn btn-primary" type="submit">
-              <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </form>
-    <div class="navbar-btn d-none d-md-block ml-1"></div>
-  </div>
-</nav>
-<!--/xadmin header page-->
-
 <!--content-->
 <div class="d-flex align-items-center flex-wrap py-3">
   <div class="ml-0 mr-1 my-1">
     <span class="text-muted">Pesquisando em </span>
   </div>
   <div class="btn-toolbar mr-1">
+    {% for search in gsearch.views %}
     <div class="btn-group-toggle m-1" data-toggle="buttons">
       <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Matérias
+        <input type="checkbox" checked class="position-static mr-1" value="app.mod"> {{ search.view.get_label }}
       </label>
     </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Seções
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Descrição de seção
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Produto
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Assinado por
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Enquete
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Eventos
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Blocos de conteúdo
-      </label>
-    </div>
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" checked class="position-static mr-1"> Inscrições
-      </label>
-    </div>
+    {% endfor %}
   </div>
 </div>
 
