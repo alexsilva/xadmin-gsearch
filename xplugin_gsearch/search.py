@@ -49,6 +49,9 @@ class Search:
 	def __iter__(self):
 		return iter(self.registry)
 
+	def __len__(self):
+		return len(self.registry)
+
 	def get_option(self, model, option_base):
 		if model in self.cache:
 			return self.cache[model]
