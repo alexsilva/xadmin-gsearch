@@ -1,4 +1,5 @@
 {% extends base_template %}
+{% load i18n %}
 
 {% block nav_title %}{{ gsearch.title }}{% endblock %}
 
@@ -6,7 +7,7 @@
 <!--content-->
 <div class="d-flex align-items-center flex-wrap py-3">
   <div class="ml-0 mr-1 my-1">
-    <span class="text-muted">Pesquisando em </span>
+    <span class="text-muted">{% trans 'Searching in' %}</span>
   </div>
   <div class="btn-toolbar mr-1">
     {% for search in gsearch.views %}
@@ -23,7 +24,7 @@
 
 <h6 class="my-1">
   <span class="text-success">{{ gsearch.count }}</span>
-  <span class="text-muted">resultados encontrados</span>
+  <span class="text-muted">{% trans 'results found' %}</span>
 </h6>
 <div class="row mw-xxl">
   {% for search in gsearch.views %}
@@ -40,7 +41,7 @@
               <div class="ml-2">{{ search.view.verbose_name }}</div>
               <div class="ml-auto">
                 <span class="text-muted font-italic mr-1">
-                  <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> resultados
+                  <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> {% trans 'results' %}
                 </span>
                 <i class="fa fa-chevron-right text-muted"></i>
               </div>

@@ -1,5 +1,6 @@
 # coding=utf-8
 import django.forms as django_forms
+from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.functional import cached_property
@@ -20,7 +21,7 @@ class SearchForm(django_forms.Form):
 
 class GlobalSearchView(CommAdminView):
 	template_name = "gsearch/search.html"
-	search_title = "Resultados da busca"
+	search_title = _("Search results")
 
 	def init_request(self, *args, **kwargs):
 		super().init_request(*args, **kwargs)
@@ -36,6 +37,14 @@ class GlobalSearchView(CommAdminView):
 		context = get_context_dict(context or {})
 		nodes.append(render_to_string("gsearch/blocks/search.nav.form.html",
 		                              context=context))
+
+	def get_breadcrumb(self):
+		bc = super().get_breadcrumb()
+		bc.append({
+			'url': None,
+			'title': self.search_title
+		})
+		return bc
 
 	@cached_property
 	def request_params(self):

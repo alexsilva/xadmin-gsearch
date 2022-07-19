@@ -1,3 +1,4 @@
+{% load i18n %}
 <form class="flex-grow-1" action="" method="post" id="gsearch_form">
   {% csrf_token %}
   <div class="input-group search-group justify-content-lg-end">
@@ -7,7 +8,7 @@
         </a>
         </span>
     <input id="searchbar" class="form-control" type="text" name="{{ gsearch.search_param }}"
-           value="{{ gsearch.search_val }}" placeholder="Search text">
+           value="{{ gsearch.search_val }}" placeholder="{% trans "Search text" %}">
     <span class="input-group-append">
         <button class="btn btn-primary" type="submit">
             <i class="fa fa-search"></i>

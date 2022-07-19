@@ -1,3 +1,4 @@
+{% load i18n %}
 <!--Global search-->
 <li class="nav-item header-search mr-md-3">
   <form action="{{ gsearch.url }}" method="get">
@@ -7,7 +8,7 @@
           <i class="fa fa-times-circle"></i>
         </span>
       </button>
-      <input type="text" class="form-control" aria-label="Buscar" placeholder="Buscar"
+      <input type="text" class="form-control" aria-label="Buscar" placeholder="{% trans 'Search' %}"
         name="{{ gsearch.param }}"
         value="{{ gsearch.val }}">
     </div>
