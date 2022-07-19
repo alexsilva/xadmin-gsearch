@@ -70,7 +70,6 @@ class GlobalSearchView(CommAdminView):
 			model_filter_id = models_ids[search.get_app_model_name(model)]
 			try:
 				search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
-				search_view.setup(request, **kwargs)
 			except PermissionDenied:
 				continue
 			checked = search_view.model_filter_id in search_model_ids
