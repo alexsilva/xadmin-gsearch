@@ -1,5 +1,6 @@
 # coding=utf-8
 import django.forms as django_forms
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
@@ -67,8 +68,11 @@ class GlobalSearchView(CommAdminView):
 			opts = self.admin_site.get_registry(model)
 			model_option = search.get_option(model, opts)
 			model_filter_id = models_ids[search.get_app_model_name(model)]
-			search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
-			search_view.setup(request, **kwargs)
+			try:
+				search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
+				search_view.setup(request, **kwargs)
+			except PermissionDenied:
+				continue
 			checked = search_view.model_filter_id in search_model_ids
 			if self.request_method == "get" and not searching:
 				checked &= search_view.model_filter_active
