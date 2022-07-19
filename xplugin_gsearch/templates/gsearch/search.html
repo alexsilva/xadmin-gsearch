@@ -12,7 +12,7 @@
     {% for search in gsearch.views %}
     <div class="btn-group-toggle m-1" data-toggle="buttons">
       <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" {% if search.enable %}checked{% endif %}
+        <input type="checkbox" {% if search.checked %}checked{% endif %}
           class="position-static mr-1 gsearch-models" value="{{ search.view.app_model_name }}">
           {{ search.view.verbose_name }}
       </label>
@@ -27,7 +27,7 @@
 </h6>
 <div class="row mw-xxl">
   {% for search in gsearch.views %}
-    {% if search.enable %}
+    {% if search.active %}
     <div class="col-sm-12 col-lg-4 pt-3 pr-0">
       <div class="list-group">
         <a href="{{ search.url }}" class="list-group-item list-group-item-action p-2">

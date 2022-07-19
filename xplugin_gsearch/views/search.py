@@ -51,18 +51,21 @@ class GlobalSearchView(CommAdminView):
 			opts = self.admin_site.get_registry(model)
 			model_option = search.get_option(model, opts)
 			search_view = self.get_search_view(model_option)
-			enable = search_view.app_model_name in search_models
+			search_view.setup(request, **kwargs)
+			checked = search_view.app_model_name in search_models
 			if self.request_method == "get":
-				enable &= search_view.model_filter_active
+				checked &= search_view.model_filter_active
+			active = checked and bool(search_val)
 			query_string = search_view.get_query_string({
 				SEARCH_VAR: search_val
 			})
 			views.append({
 				'view': search_view,
 				'url': search_view.model_admin_url("changelist") + query_string,
-				'enable': enable
+				'checked': checked,
+				'active': active
 			})
-			if enable:
+			if active:
 				count += search_view.get_total()
 		context['gsearch'] = {
 			'url': self.get_admin_url("gsearch"),
