@@ -79,7 +79,7 @@ class GlobalSearchView(CommAdminView):
 			active = search_view.has_view_permission() and checked and bool(self.search_text)
 			query_string = search_view.get_query_string({
 				SEARCH_VAR: self.search_text
-			})
+			}, remove=["mdl"])
 			views.append({
 				'view': search_view,
 				'url': search_view.model_admin_url("changelist") + query_string,
