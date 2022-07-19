@@ -12,7 +12,11 @@ from xplugin_gsearch.search import search
 
 class SearchForm(django_forms.Form):
 	shr = django_forms.BooleanField(required=False, initial=False)
-	models = django_forms.MultipleChoiceField(required=False)
+	mdl = django_forms.MultipleChoiceField(required=False)
+
+	def clean_mdl(self):
+		models = self.cleaned_data['mdl']
+		return [int(m) for m in models if m.isdigit()]
 
 	def get_val(self, field_name):
 		return (self.cleaned_data[field_name]
@@ -28,12 +32,12 @@ class GlobalSearchView(CommAdminView):
 		super().init_request(*args, **kwargs)
 		self.search_text = self.request_params.get(SEARCH_VAR, '').strip()
 		self.form = SearchForm(data=self.request_params)
-		models = self.form.fields['models']
+		models = self.form.fields['mdl']
 		models.initial = [v[0] for v in search.choices]
 		models.choices = search.choices
 
-	def get_search_view(self, model_option):
-		return self.get_view(ListAdminView, model_option)
+	def get_search_view(self, model_option, **opts):
+		return self.get_view(ListAdminView, model_option, opts=opts)
 
 	def block_nav_form(self, context, nodes):
 		context = get_context_dict(context or {})
@@ -56,14 +60,16 @@ class GlobalSearchView(CommAdminView):
 		context = self.get_context()
 		views = []
 		count = 0
-		search_models = self.form.get_val("models")
+		search_model_ids = self.form.get_val("mdl")
 		searching = self.form.get_val("shr")
+		models_ids = dict([(v, k) for k, v in search.choices])
 		for model in search:
 			opts = self.admin_site.get_registry(model)
 			model_option = search.get_option(model, opts)
-			search_view = self.get_search_view(model_option)
+			model_filter_id = models_ids[search.get_app_model_name(model)]
+			search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
 			search_view.setup(request, **kwargs)
-			checked = search_view.app_model_name in search_models
+			checked = search_view.model_filter_id in search_model_ids
 			if self.request_method == "get" and not searching:
 				checked &= search_view.model_filter_active
 			active = checked and bool(self.search_text)

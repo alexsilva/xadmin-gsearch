@@ -7,7 +7,7 @@ $(function () {
             var $el = $(this),
                 $obj;
             if ($el.is(":checked")) {
-                $obj = $hidden.clone().attr("name", "models").val($el.val());
+                $obj = $hidden.clone().attr("name", "mdl").val($el.val());
                 $form.append($obj);
             }
         });

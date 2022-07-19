@@ -4,6 +4,7 @@
 class SearchOptsView:
 	model = opts = None
 	model_filter_active = True
+	model_filter_id = None
 
 	@property
 	def verbose_name(self):
@@ -25,13 +26,16 @@ class Search:
 		self.cache = {}
 		self._iterator = None
 
+	@staticmethod
+	def get_app_model_name(model):
+		opts = model._meta
+		return f"{opts.app_label}.{opts.model_name}"
+
 	@property
 	def choices(self):
 		chs = []
-		for model in self.registry:
-			opts = model._meta
-			name = f"{opts.app_label}.{opts.model_name}"
-			chs.append((name, model))
+		for idx, model in enumerate(self.registry):
+			chs.append((idx, self.get_app_model_name(model)))
 		return chs
 
 	def register(self, model, option_class=None):

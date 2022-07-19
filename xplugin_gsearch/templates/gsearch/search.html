@@ -14,7 +14,7 @@
     <div class="btn-group-toggle m-1" data-toggle="buttons">
       <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
         <input type="checkbox" {% if search.checked %}checked{% endif %}
-          class="position-static mr-1 gsearch-models" value="{{ search.view.app_model_name }}">
+          class="position-static mr-1 gsearch-models" value="{{ search.view.model_filter_id }}">
           {{ search.view.verbose_name }}
       </label>
     </div>
