@@ -72,7 +72,7 @@ class GlobalSearchView(CommAdminView):
 			checked = search_view.model_filter_id in search_model_ids
 			if self.request_method == "get" and not searching:
 				checked &= search_view.model_filter_active
-			active = checked and bool(self.search_text)
+			active = search_view.has_view_permission() and checked and bool(self.search_text)
 			query_string = search_view.get_query_string({
 				SEARCH_VAR: self.search_text
 			})
