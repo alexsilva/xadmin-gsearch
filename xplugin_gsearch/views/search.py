@@ -11,11 +11,12 @@ from xplugin_gsearch.search import search
 
 
 class SearchForm(django_forms.Form):
+	shr = django_forms.BooleanField(required=False, initial=False)
 	models = django_forms.MultipleChoiceField(required=False)
 
 	def get_val(self, field_name):
 		return (self.cleaned_data[field_name]
-		        if self.is_valid() else
+		        if self.is_valid() and self.cleaned_data['shr'] else
 		        self.fields[field_name].initial)
 
 
@@ -25,7 +26,8 @@ class GlobalSearchView(CommAdminView):
 
 	def init_request(self, *args, **kwargs):
 		super().init_request(*args, **kwargs)
-		self.form = SearchForm(data=self.request_params if self.request_method == 'post' else None)
+		self.search_text = self.request_params.get(SEARCH_VAR, '').strip()
+		self.form = SearchForm(data=self.request_params)
 		models = self.form.fields['models']
 		models.initial = [v[0] for v in search.choices]
 		models.choices = search.choices
@@ -54,19 +56,19 @@ class GlobalSearchView(CommAdminView):
 		context = self.get_context()
 		views = []
 		count = 0
-		search_val = self.request_params.get(SEARCH_VAR, '')
 		search_models = self.form.get_val("models")
+		searching = self.form.get_val("shr")
 		for model in search:
 			opts = self.admin_site.get_registry(model)
 			model_option = search.get_option(model, opts)
 			search_view = self.get_search_view(model_option)
 			search_view.setup(request, **kwargs)
 			checked = search_view.app_model_name in search_models
-			if self.request_method == "get":
+			if self.request_method == "get" and not searching:
 				checked &= search_view.model_filter_active
-			active = checked and bool(search_val)
+			active = checked and bool(self.search_text)
 			query_string = search_view.get_query_string({
-				SEARCH_VAR: search_val
+				SEARCH_VAR: self.search_text
 			})
 			views.append({
 				'view': search_view,
@@ -80,7 +82,7 @@ class GlobalSearchView(CommAdminView):
 			'url': self.get_admin_url("gsearch"),
 			'title': self.search_title,
 			'search_param': SEARCH_VAR,
-			'search_val': search_val,
+			'search_text': self.search_text,
 			'count': count,
 			'views': views
 		}
