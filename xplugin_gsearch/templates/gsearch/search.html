@@ -5,6 +5,7 @@
 
 {% block content %}
 <!--content-->
+{% if gsearch.views %}
 <div class="d-flex align-items-center flex-wrap py-3">
   <div class="ml-0 mr-1 my-1">
     <span class="text-muted">{% trans 'Searching in' %}</span>
@@ -21,7 +22,7 @@
     {% endfor %}
   </div>
 </div>
-
+{% endif %}
 <h6 class="my-1">
   <span class="text-success">{{ gsearch.count }}</span>
   <span class="text-muted">{% trans 'results found' %}</span>
