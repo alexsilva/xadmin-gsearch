@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-19 12:07-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.form.html:11
+msgid "Search text"
+msgstr "Buscar texto"
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.top.html:11
+msgid "Search"
+msgstr "Buscar"
+
+#: xplugin_gsearch/templates/gsearch/search.html:10
+msgid "Searching in"
+msgstr "Pesquisando em"
+
+#: xplugin_gsearch/templates/gsearch/search.html:27
+msgid "results found"
+msgstr "resultados encontrados"
+
+#: xplugin_gsearch/templates/gsearch/search.html:44
+msgid "results"
+msgstr "resultados"
+
+#: xplugin_gsearch/views/search.py:29
+msgid "Search results"
+msgstr "Resultados da busca"
