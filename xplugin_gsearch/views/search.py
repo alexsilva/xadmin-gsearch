@@ -1,12 +1,15 @@
 # coding=utf-8
 import django.forms as django_forms
+from django.apps import apps
 from django.core.exceptions import PermissionDenied
+from django.http import Http404
 from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.functional import cached_property
 from xadmin.filters import SEARCH_VAR
 from xadmin.plugins.utils import get_context_dict
+from xadmin.sites import NotRegistered
 from xadmin.views import CommAdminView, ListAdminView
 from xplugin_gsearch.search import search
 
@@ -67,7 +70,8 @@ class GlobalSearchView(CommAdminView):
 		for model in search:
 			opts = self.admin_site.get_registry(model)
 			model_option = search.get_option(model, opts)
-			model_filter_id = models_ids[search.get_app_model_name(model)]
+			app_model_name = search.get_app_model_name(model)
+			model_filter_id = models_ids[app_model_name]
 			try:
 				search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
 			except PermissionDenied:
@@ -79,9 +83,12 @@ class GlobalSearchView(CommAdminView):
 			query_string = search_view.get_query_string({
 				SEARCH_VAR: self.search_text
 			}, remove=["mdl"])
+			app_label, model_name = app_model_name.split(".", 1)
+			url = search_view.get_admin_url("search_resultlist", app_label=app_label,
+			                                model_name=model_name) + query_string
 			views.append({
 				'view': search_view,
-				'url': search_view.model_admin_url("changelist") + query_string,
+				'url': url,
 				'checked': checked,
 				'active': active
 			})
@@ -114,3 +121,24 @@ class GlobalSearchView(CommAdminView):
 
 	def post(self, request, **kwargs):
 		return self.search(request, **kwargs)
+
+
+class GlobalSearchResultView(CommAdminView):
+
+	def get_search_view(self, model_option, **opts):
+		return self.get_view(ListAdminView, model_option, opts=opts)
+
+	def get(self, request, app_label=None, model_name=None, **kwargs):
+		choices = dict([(v, k) for k, v in search.choices])
+		try:
+			model_filter_id = choices[f'{app_label}.{model_name}']
+		except KeyError:
+			raise Http404
+		model = apps.get_model(app_label, model_name)
+		try:
+			option_class = self.admin_site.get_registry(model)
+		except NotRegistered:
+			raise Http404
+		model_option = search.get_option(model, option_class)
+		search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
+		return search_view.get(request, **kwargs)
