@@ -3,10 +3,10 @@ import django.forms as django_forms
 from django.apps import apps
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 from xadmin.filters import SEARCH_VAR
 from xadmin.plugins.utils import get_context_dict
 from xadmin.sites import NotRegistered
@@ -28,7 +28,13 @@ class SearchForm(django_forms.Form):
 		        self.fields[field_name].initial)
 
 
-class GlobalSearchView(CommAdminView):
+class CommSearchView(CommAdminView):
+	"""Common search"""
+	def get_search_view(self, model_option, **opts):
+		return self.get_view(ListAdminView, model_option, opts=opts)
+
+
+class GlobalSearchView(CommSearchView):
 	template_name = "gsearch/search.html"
 	search_title = _("Search results")
 
@@ -39,9 +45,6 @@ class GlobalSearchView(CommAdminView):
 		models = self.form.fields['mdl']
 		models.initial = [v[0] for v in search.choices]
 		models.choices = search.choices
-
-	def get_search_view(self, model_option, **opts):
-		return self.get_view(ListAdminView, model_option, opts=opts)
 
 	def block_nav_form(self, context, nodes):
 		context = get_context_dict(context or {})
@@ -123,10 +126,7 @@ class GlobalSearchView(CommAdminView):
 		return self.search(request, **kwargs)
 
 
-class GlobalSearchResultView(CommAdminView):
-
-	def get_search_view(self, model_option, **opts):
-		return self.get_view(ListAdminView, model_option, opts=opts)
+class GlobalSearchResultView(CommSearchView):
 
 	def get(self, request, app_label=None, model_name=None, **kwargs):
 		choices = dict([(v, k) for k, v in search.choices])
