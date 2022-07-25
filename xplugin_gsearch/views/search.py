@@ -85,7 +85,7 @@ class GlobalSearchView(CommSearchView):
 			active = search_view.has_view_permission() and checked and bool(self.search_text)
 			query_string = search_view.get_query_string({
 				SEARCH_VAR: self.search_text
-			}, remove=["mdl"])
+			}, remove=["mdl", "shr"])
 			app_label, model_name = app_model_name.split(".", 1)
 			url = search_view.get_admin_url("search_resultlist", app_label=app_label,
 			                                model_name=model_name) + query_string
