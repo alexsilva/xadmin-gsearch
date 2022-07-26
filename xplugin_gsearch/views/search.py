@@ -1,5 +1,6 @@
 # coding=utf-8
 import django.forms as django_forms
+import warnings
 from django.apps import apps
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -31,7 +32,13 @@ class SearchForm(django_forms.Form):
 class CommSearchView(CommAdminView):
 	"""Common search"""
 	def get_search_view(self, model_option, **opts):
-		return self.get_view(ListAdminView, model_option, opts=opts)
+		view = self.get_view(ListAdminView, model_option, opts=opts)
+		if not getattr(view, "search_fields", None):
+			app_model_name = search.get_app_model_name(model_option.model)
+			warnings.warn("missing/empty 'search_fields' view attribute for model '%(name)s'" % {
+				'name': app_model_name},
+				RuntimeWarning)
+		return view
 
 
 class GlobalSearchView(CommSearchView):
