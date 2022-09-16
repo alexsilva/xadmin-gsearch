@@ -134,8 +134,9 @@ class GlobalSearchView(CommSearchView):
 
 
 class GlobalSearchResultView(CommSearchView):
+	"""View that the search results exist in the list."""
 
-	def get(self, request, app_label=None, model_name=None, **kwargs):
+	def search_response(self, request, app_label=None, model_name=None, **kwargs):
 		choices = dict([(v, k) for k, v in search.choices])
 		try:
 			model_filter_id = choices[f'{app_label}.{model_name}']
@@ -148,4 +149,12 @@ class GlobalSearchResultView(CommSearchView):
 			raise Http404
 		model_option = search.get_option(model, option_class)
 		search_view = self.get_search_view(model_option, model_filter_id=model_filter_id)
-		return search_view.get(request, **kwargs)
+		return getattr(search_view, self.request_method)(request, **kwargs)
+
+	def init_request(self, *args, **kwargs):
+		# Mapping of all 'http_method_names' to the 'search_response'
+		# method (when not defined in the view).
+		for method in self.http_method_names:
+			if not hasattr(self, method):
+				setattr(self, method, self.search_response)
+		return super().init_request(*args, **kwargs)
