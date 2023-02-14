@@ -6,22 +6,6 @@
 {% block content %}
 <!--content-->
 {% if gsearch.views %}
-<div class="d-flex align-items-center flex-wrap py-3">
-  <div class="ml-0 mr-1 my-1">
-    <span class="text-muted">{% trans 'Searching in' %}</span>
-  </div>
-  <div class="btn-toolbar mr-1">
-    {% for search in gsearch.views %}
-    <div class="btn-group-toggle m-1" data-toggle="buttons">
-      <label class="btn btn-secondary rounded-pill d-flex align-items-center active">
-        <input type="checkbox" {% if search.checked %}checked{% endif %}
-          class="position-static mr-1 gsearch-models" value="{{ search.view.model_filter_id }}">
-          {{ search.view.verbose_name }}
-      </label>
-    </div>
-    {% endfor %}
-  </div>
-</div>
 {% endif %}
 <h6 class="my-1">
   <span class="text-success">{{ gsearch.count }}</span>

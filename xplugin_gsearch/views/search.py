@@ -58,6 +58,23 @@ class GlobalSearchView(CommSearchView):
 		nodes.append(render_to_string("gsearch/blocks/search.nav.form.html",
 		                              context=context))
 
+	def block_nav_menu(self, context, nodes):
+		context = get_context_dict(context or {})
+		nodes.append(render_to_string('gsearch/blocks/search.nav_menu.filters.html',
+												 context=context))
+
+	def block_nav_btns(self, context, nodes):
+		context = get_context_dict(context or {})
+		nodes.append(render_to_string("gsearch/blocks/search.nav_btns.filters.html",
+									  context=context,
+									  request=self.request))
+
+	def block_nav_toggles(self, context, nodes):
+		context = get_context_dict(context or {})
+		nodes.append(render_to_string("gsearch/blocks/search.navmob_toggles.filters.html",
+			                              context=context,
+			                              request=self.request))
+
 	def get_breadcrumb(self):
 		bc = super().get_breadcrumb()
 		bc.append({
