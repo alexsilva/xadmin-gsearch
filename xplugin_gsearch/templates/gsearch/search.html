@@ -27,19 +27,19 @@
   <span class="text-success">{{ gsearch.count }}</span>
   <span class="text-muted">{% trans 'results found' %}</span>
 </h6>
-<div class="row mw-xxl">
+<div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3 row-cols-xxxl-5 mt-3">
   {% for search in gsearch.views %}
     {% if search.active %}
-    <div class="col-sm-12 col-lg-4 pt-3 pr-0">
-      <div class="list-group">
-        <a href="{{ search.url }}" class="list-group-item list-group-item-action p-2">
+    <div class="col mb-3">
+      <div class="list-group list-group-media h-100 {% if search.view.get_total > 0 %}border border-2 border-primary rounded{% endif %}">
+        <a href="{{ search.url }}" class="list-group-item list-group-item-action list-item flex-fill p-2">
           <div class="media align-items-center flex-fill">
-            <span class="fa-stack text-primary mr-2">
+            <span class="fa-stack text-{% if search.view.get_total > 0 %}primary{% else %}muted{% endif %} mr-2">
               <i class="fas fa-square fa-stack-2x"></i>
               <i class="fas fa-search fa-stack-1x fa-inverse"></i>
             </span>
             <div class="media-body d-flex align-items-center">
-              <div class="ml-2">{{ search.view.verbose_name }}</div>
+              <div class="ml-2 list-item-title">{{ search.view.verbose_name }}</div>
               <div class="ml-auto">
                 <span class="text-muted font-italic mr-1">
                   <strong><span class="text-primary">{{ search.view.get_total }}</span></strong> {% trans 'results' %}
