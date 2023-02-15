@@ -1,4 +1,5 @@
+{% load gsearch_tags %}
 <button class="btn btn-sm btn-primary btn-icon d-flex d-md-none position-relative justify-content-center mx-1" data-lity data-lity-target="#gsearch-filters">
   <span class="far fa-filter align-self-center"></span>
-  <span class="badge badge-pill badge-warning badge-notify position-absolute position-top ml-4 mt-n1">9</span>
+  <span class="badge badge-pill badge-warning badge-notify position-absolute position-top ml-4 mt-n1">{{ gsearch.views|filters_num }}</span>
 </button>

@@ -91,7 +91,7 @@ class GlobalSearchView(CommSearchView):
 	def search(self, request, **kwargs):
 		context = self.get_context()
 		views = []
-		count = 0
+		results_count = 0
 		search_model_ids = self.form.get_val("mdl")
 		searching = self.form.get_val("shr")
 		models_ids = dict([(v, k) for k, v in search.choices])
@@ -121,13 +121,13 @@ class GlobalSearchView(CommSearchView):
 				'active': active
 			})
 			if active:
-				count += search_view.get_total()
+				results_count += search_view.get_total()
 		context['gsearch'] = {
 			'url': self.get_admin_url("gsearch"),
 			'title': self.search_title,
 			'search_param': SEARCH_VAR,
 			'search_text': self.search_text,
-			'count': count,
+			'count': results_count,
 			'views': views
 		}
 		response = TemplateResponse(

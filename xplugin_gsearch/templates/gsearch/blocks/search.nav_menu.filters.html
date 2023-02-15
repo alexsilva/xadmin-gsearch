@@ -1,81 +1,87 @@
+{% load i18n %}
+{% load gsearch_tags %}
 {% if gsearch.views %}
   <li class="nav-item">
     <div class="nav nav-filter d-none d-xxl-flex align-items-center border rounded-pill shadow mx-2 px-3 py-1">
       <div class="nav-item">
         <div class="form-group">
-          <label class="font-weight-bold text-muted d-inline-block pr-2">Pesquisando em</label>
+          <label class="font-weight-bold text-muted d-inline-block pr-2">{% trans 'Search in' %}</label>
           <div class="btn-group btn-group-sm btn-group-toggle btn-group-toggle-switch" data-toggle="buttons">
-            {% for search in gsearch.views %}
-              {% if forloop.counter0 < 3 %}
-                <span class="btn btn-secondary {% if not forloop.first %}ml-1{% endif %} {% if search.checked %}active{% endif %}"><input class="gsearch-models" type="checkbox" name="filter_name_{{ search.view.model_filter_id }}" value="{{ search.view.model_filter_id }}" {% if search.checked %}checked{% endif %}> {{ search.view.verbose_name }}</span>
-              {% endif %}
+            {% for search in gsearch.views|slice:3 %}
+                <span class="btn btn-secondary {% if not forloop.first %}ml-1{% endif %} {% if search.checked %}active{% endif %}">
+                  <input class="gsearch-models" type="checkbox" name="filter_name_{{ search.view.model_filter_id }}" value="{{ search.view.model_filter_id }}" {% if search.checked %}checked{% endif %}> {{ search.view.verbose_name }}</span>
             {% endfor %}
           </div>
         </div>
       </div>
+
       <div class="nav-item mr-n2">
         <span class="mx-1">...</span>
-        <span class="btn btn-subtle-primary position-relative rounded-pill" data-lity="" data-lity-target="#changelist-filters"><i class="far fa-filter"></i> mais filtros
-        <span class="badge badge-pill badge-primary position-absolute position-right position-top badge-notify">9</span></span>
+        <span class="btn btn-subtle-primary position-relative rounded-pill" data-lity="" data-lity-target="#gsearch-filters">
+          <i class="far fa-filter"></i> mais filtros
+          <span class="badge badge-pill badge-primary position-absolute position-right position-top badge-notify">{{ gsearch.views|filters_num }}</span>
+        </span>
 
-{#        <div id="gsearch-filters" class="lity-hide h-100">#}
-{#          <div class="lity-container-inline card lity-container-w-sm mw-100">#}
-{#            <div class="card-header d-flex justify-content-between align-items-center fixed-top px-4">#}
-{#              <h6 class="mb-0"><i class="fal fa-filter mr-1 ml-n1" title="Filtros"></i> Pesquisando em </h6>#}
-{#              <div class="mr-2">#}
-{#                <strong>Todos</strong>#}
-{#                <label class="switcher-control switcher-control-lg switcher-control-primary ml-2">#}
-{#                  <input type="checkbox" id="all-checked-1" name="all" class="switcher-input" data-toggle-checked=".hook-checked-1" checked="checked">#}
-{#                  <span class="switcher-indicator"></span>#}
-{#                </label>#}
-{#              </div>#}
-{#            </div>#}
-{#            <div class="card-body overflow-auto mt-5 pt-4 px-4 mr-2" style="max-height:calc(100vh - 3rem);">#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Seções</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-2" value="2" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Seções: Lista de conteúdo</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-3" value="3" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Seções: Descrição da seção</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-4" value="4" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Matérias</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-5" value="5" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Assinados por</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-6" value="6" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Categorias</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-7" value="7" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Atalhos da home</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-8" value="8" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Comentários</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-9" value="9" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Enquetes</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-10" value="10" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Fotos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-11" value="11" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Vídeos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-12" value="12" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Banners</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-13" value="13" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Calendários</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-14" value="14" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#                <div class="form-group d-flex justify-content-between align-items-center">#}
-{#                  <strong>Eventos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-15" value="15" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>#}
-{#                </div>#}
-{#            </div>#}
-{#          </div>#}
-{#        </div>#}
+        <div id="gsearch-filters" class="lity-hide h-100">
+          <div class="lity-container-inline card lity-container-w-sm mw-100">
+            <div class="card-header d-flex justify-content-between align-items-center fixed-top px-4">
+              <h6 class="mb-0"><i class="fal fa-filter mr-1 ml-n1" title="Filtros"></i> Pesquisando em </h6>
+              <div class="mr-2">
+                <strong>Todos</strong>
+                <label class="switcher-control switcher-control-lg switcher-control-primary ml-2">
+                  <input type="checkbox" id="all-checked-1" name="all" class="switcher-input" data-toggle-checked=".hook-checked-1" checked="checked">
+                  <span class="switcher-indicator"></span>
+                </label>
+              </div>
+            </div>
+            <div class="card-body overflow-auto mt-5 pt-4 px-4 mr-2" style="max-height:calc(100vh - 3rem);">
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Seções</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-2" value="2" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Seções: Lista de conteúdo</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-3" value="3" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Seções: Descrição da seção</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-4" value="4" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Matérias</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-5" value="5" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Assinados por</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-6" value="6" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Categorias</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-7" value="7" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Atalhos da home</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-8" value="8" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Comentários</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-9" value="9" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Enquetes</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-10" value="10" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Fotos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-11" value="11" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Vídeos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-12" value="12" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Banners</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-13" value="13" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Calendários</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-14" value="14" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                  <strong>Eventos</strong> <label class="switcher-control switcher-control-primary"><input type="checkbox" name="name-15" value="15" class="switcher-input hook-checked-1" checked="checked"> <span class="switcher-indicator"></span></label>
+                </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </li>
