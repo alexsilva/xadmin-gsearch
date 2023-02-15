@@ -26,23 +26,23 @@
     <span class="far fa fa-search align-self-center"></span>
 </button>
 
-{#<div id="modal-form-gsearch" class="lity-hide">#}
-{#    <form action="" method="get">#}
-{#        <div class="lity-container-inline card lity-container-w-sm">#}
-{#            <div class="card-header">{% trans "Search text" %}</div>#}
-{#            <div class="card-body">#}
-{#                <div class="input-group search-group justify-content-end">#}
-{#                    {% if gsearch.search_text %}#}
-{#                        <span class="input-group-prepend">#}
-{#                          <a class="input-group-text btn" href="{{ gsearch.url }}">#}
-{#                            <i class="fa fa-times-circle"></i>#}
-{#                          </a>#}
-{#                        </span>#}
-{#                    {% endif %}#}
-{#                    <input id="searchbar-mobile" class="form-control" type="text" name="{{ gsearch.search_param }}" value="{{ gsearch.search_text }}" placeholder="Digite o que você procura">#}
-{#                    <span class="input-group-append"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></span>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </form>#}
-{#</div>#}
+<div id="modal-form-gsearch" class="lity-hide">
+    <form action="" method="get">
+        <div class="lity-container-inline card lity-container-w-sm">
+            <div class="card-header">{% trans "Search text" %}</div>
+            <div class="card-body">
+                <div class="input-group search-group justify-content-end">
+                    {% if gsearch.search_text %}
+                        <span class="input-group-prepend">
+                          <a class="input-group-text btn" href="{{ gsearch.url }}">
+                            <i class="fa fa-times-circle"></i>
+                          </a>
+                        </span>
+                    {% endif %}
+                    <input id="searchbar-mobile" class="form-control" type="text" name="{{ gsearch.search_param }}" value="{{ gsearch.search_text }}" placeholder="Digite o que você procura">
+                    <span class="input-group-append"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
