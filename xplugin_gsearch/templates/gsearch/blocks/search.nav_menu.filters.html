@@ -9,7 +9,8 @@
           <div class="btn-group btn-group-sm btn-group-toggle btn-group-toggle-switch" data-toggle="buttons">
             {% for search in gsearch.views|slice:":3" %}
                 <span class="btn btn-secondary {% if not forloop.first %}ml-1{% endif %} {% if search.checked %}active{% endif %}">
-                  <input class="gsearch-models" type="checkbox" name="filter_name_{{ search.view.model_filter_id }}" value="{{ search.view.model_filter_id }}" {% if search.checked %}checked{% endif %}> {{ search.view.verbose_name }}</span>
+                  <input class="gsearch-models inlinefilter" data-related=".lityfilter" type="checkbox" name="filter_name_{{ search.view.model_filter_id }}"
+                         value="{{ search.view.model_filter_id }}" {% if search.checked %}checked{% endif %}> {{ search.view.verbose_name }}</span>
             {% endfor %}
           </div>
         </div>
@@ -43,7 +44,8 @@
                 <div class="form-group d-flex justify-content-between align-items-center">
                 <strong>{{ search.view.verbose_name }}</strong>
                   <label class="switcher-control switcher-control-primary">
-                    <input type="checkbox" name="filter_name_{{ search.view.model_filter_id }}" value="{{ search.view.model_filter_id }}" class="switcher-input hook-checked-1"
+                    <input type="checkbox" name="filter_name_{{ search.view.model_filter_id }}" value="{{ search.view.model_filter_id }}"
+                           class="switcher-input gsearch-models lityfilter hook-checked-1" data-related=".inlinefilter"
                            {% if search.checked %}checked="checked"{% endif %}>
                     <span class="switcher-indicator"></span>
                   </label>
@@ -53,7 +55,6 @@
             </div>
           </div>
         </div>
-
 
       </div>
     </div>
