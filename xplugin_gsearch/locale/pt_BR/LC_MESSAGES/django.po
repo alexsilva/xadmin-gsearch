@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-19 12:07-0300\n"
+"POT-Creation-Date: 2023-02-15 17:42-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,48 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: xplugin_gsearch/templates/gsearch/blocks/search.nav.form.html:11
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.form.html:13
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.form.html:32
 msgid "Search text"
 msgstr "Buscar texto"
 
-#: xplugin_gsearch/templates/gsearch/blocks/search.nav.top.html:11
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.form.html:42
+msgid "Enter what you're looking for"
+msgstr "Digite do texto que está procurando"
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav.top.html:14
 msgid "Search"
 msgstr "Buscar"
 
-#: xplugin_gsearch/templates/gsearch/search.html:10
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:8
 msgid "Searching in"
 msgstr "Pesquisando em"
 
-#: xplugin_gsearch/templates/gsearch/search.html:27
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:22
+msgid "more filters"
+msgstr "more filtros"
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:31
+msgid "Filters"
+msgstr "Filtros"
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:31
+msgid "Search in"
+msgstr "Pesquisando em"
+
+#: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:33
+msgid "All"
+msgstr "Todos"
+
+#: xplugin_gsearch/templates/gsearch/search.html:12
 msgid "results found"
 msgstr "resultados encontrados"
 
-#: xplugin_gsearch/templates/gsearch/search.html:44
+#: xplugin_gsearch/templates/gsearch/search.html:29
 msgid "results"
 msgstr "resultados"
 
-#: xplugin_gsearch/views/search.py:29
+#: xplugin_gsearch/views/search.py:47
 msgid "Search results"
 msgstr "Resultados da busca"
