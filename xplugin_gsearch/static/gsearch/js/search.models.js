@@ -1,4 +1,7 @@
 $(function () {
+    $(".switcher-control input[name='all']").change(function (){
+        $("input.gsearch-models.lityfilter:checkbox").trigger('change'); //update states
+    })
     $("input.gsearch-models:checkbox").change(function () {
         // synchronize reverse filter state
         var $el = $(this),
