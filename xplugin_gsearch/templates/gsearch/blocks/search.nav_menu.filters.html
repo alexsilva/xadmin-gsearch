@@ -5,7 +5,7 @@
     <div class="nav nav-filter d-none d-xxl-flex align-items-center border rounded-pill shadow mx-2 px-3 py-1">
       <div class="nav-item">
         <div class="form-group">
-          <label class="font-weight-bold text-muted d-inline-block pr-2">{% trans 'Search in' %}</label>
+          <label class="font-weight-bold text-muted d-inline-block pr-2">{% trans 'Searching in' %}</label>
           <div class="btn-group btn-group-sm btn-group-toggle btn-group-toggle-switch" data-toggle="buttons">
             {% for search in gsearch.views|slice:":3" %}
                 <span class="btn btn-secondary {% if not forloop.first %}ml-1{% endif %} {% if search.checked %}active{% endif %}">
