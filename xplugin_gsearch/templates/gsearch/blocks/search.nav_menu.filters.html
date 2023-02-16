@@ -39,7 +39,6 @@
               </div>
             </div>
             <div class="card-body overflow-auto mt-5 pt-4 px-4 mr-2" style="max-height:calc(100vh - 3rem);">
-
               {% for search in gsearch.views %}
                 <div class="form-group d-flex justify-content-between align-items-center">
                 <strong>{{ search.view.verbose_name }}</strong>
@@ -51,7 +50,11 @@
                   </label>
                 </div>
               {% endfor %}
-
+              <div class="d-flex justify-content-md-end">
+                <button type="button" class="btn btn-primary gsearch-apply" {% if not gsearch.search_text %}disabled{% endif %}>
+                  {% trans "Apply" %}
+                </button>
+              </div>
             </div>
           </div>
         </div>

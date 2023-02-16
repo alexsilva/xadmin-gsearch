@@ -13,7 +13,7 @@ $(function () {
         $obj.prop("checked", is_checked);
         $obj.parent()[classHandler]('active');
     })
-    $("#gsearch_form").submit(function () {
+    var $form = $("#gsearch_form").submit(function () {
         var $form = $(this),
             $hidden = $("<input>").attr("type", "hidden");
         $form.append($hidden.clone().attr("name", "shr").val(1));
@@ -29,4 +29,7 @@ $(function () {
             }
         });
     });
+    $("button.gsearch-apply").click(function () {
+        $form.submit();
+    })
 });
