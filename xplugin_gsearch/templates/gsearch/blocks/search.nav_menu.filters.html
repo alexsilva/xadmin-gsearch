@@ -51,8 +51,8 @@
                 </div>
               {% endfor %}
               <div class="d-flex justify-content-md-end">
-                <button type="button" class="btn btn-primary gsearch-apply" {% if not gsearch.search_text %}disabled{% endif %}>
-                  {% trans "Apply" %}
+                <button type="button" class="btn btn-sm btn-primary gsearch-apply" {% if not gsearch.search_text %}disabled{% endif %}>
+                  <i class="fa fa-search"></i> {% trans "Apply" %}
                 </button>
               </div>
             </div>
