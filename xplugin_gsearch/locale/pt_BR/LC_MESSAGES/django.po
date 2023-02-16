@@ -37,7 +37,7 @@ msgstr "Pesquisando em"
 
 #: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:22
 msgid "more filters"
-msgstr "more filtros"
+msgstr "mais filtros"
 
 #: xplugin_gsearch/templates/gsearch/blocks/search.nav_menu.filters.html:31
 msgid "Filters"
